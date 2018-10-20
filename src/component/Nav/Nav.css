@@ -1,0 +1,28 @@
+.nav{
+    display:flex;
+    justify-content: flex-end;
+    height:10vh;
+    background-color: azure; 
+  }
+  .nav-bar{
+    display:flex;
+    align-items:center;
+    
+  }
+  button{
+    margin:5px;
+    padding:5px;
+    box-sizing:border-box;
+    border:none;
+    background-color:rgb(231, 231, 241);
+    color:gray;
+    
+  }
+  button:hover{
+    background-color:rgb(202, 202, 216)
+  }
+
+  /* At media have buttons along top collapse to accordian
+    
+
+    */
