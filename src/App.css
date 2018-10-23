@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 .App {
   text-align: center;
+  font-family: Oswald;
 }
 
 .App-logo {
@@ -32,3 +33,32 @@
   }
 }
 
+
+.stats{
+  height:50vh;
+  display:flex;
+  align-content: center;
+}
+.recs{
+  display:flex;
+  justify-content: space-between;
+  flex-wrap:wrap; 
+  padding:10px;
+}
+.recordCard{
+  background-color: rgb(134, 166, 199);
+  
+  box-shadow: 4px 4px 9px 3px rgb(181, 187, 185);
+  border-radius: 4px;
+  box-sizing:border-box;
+  width: 20vw;
+  height: 15vh;
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color:white;
+}
+.tag{
+  font-weight:bold;
+  color:rgb(95, 109, 121);
+}

@@ -9,8 +9,8 @@ module.exports = {
         // backEnd can generate uniqure ten digit id for each record 
         // and send it in the respons. 
         const db = req.app.get('db');
-        const {userInput, userName,phoneNumber } = req.body;
-        db.add_record(userInput,userName,phoneNumber).then(result=>{
+        const {userName,phoneNumber, userInputOne,userInputTwo, timestamp } = req.body;
+        db.add_record(userName,phoneNumber, userInputOne,userInputTwo, timestamp).then(result=>{
             db.get_records().then(result=>{
                res.status(200).send(result); 
             }) 

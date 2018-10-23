@@ -1,0 +1,11 @@
+CREATE TABLE granifyTest (
+    id serial  Primary Key ,
+    username VARCHAR(50),
+    phone_number VARCHAR(50),
+    input_one VARCHAR(355),
+    input_two VARCHAR(355),
+    created_on TIMESTAMP NOT NULL
+);
+
+
+//For churn rate, perhaps get earliest record get latest record, entire list of records, and the difference between that list and the id. 
