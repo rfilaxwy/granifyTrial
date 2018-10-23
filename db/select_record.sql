@@ -1,2 +1,2 @@
-SELECT * from granifyTest 
+SELECT * FROM granifyTest 
 WHERE id = $1;

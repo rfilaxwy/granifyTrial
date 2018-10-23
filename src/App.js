@@ -16,7 +16,8 @@ class App extends Component {
   constructor(){
     super()
     this.state={
-      records:[]
+      records:[],
+      highestId:''
     }
   }
   componentDidMount(){

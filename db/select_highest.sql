@@ -1,0 +1,2 @@
+SELECT id FROM granifyTest
+ORDER BY id DESC LIMIT 1;

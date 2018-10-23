@@ -16,11 +16,12 @@
     border:none;
     border-radius:5px;
     background-color:rgb(229, 229, 247);
+    box-shadow: 1px 2px 1px 4px rgb(52, 53, 53);
     color:rgb(158, 154, 154);
     
   }
   button:hover{
-    background-color:rgb(202, 202, 216)
+    background-color:rgb(119, 119, 218)
   }
 
   /* At media have buttons along top collapse to accordian
