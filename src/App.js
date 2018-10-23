@@ -21,15 +21,20 @@ class App extends Component {
   }
   componentDidMount(){
     axios.get('/api/records').then(result=>{
-        console.log(result.data)
         this.setState({records:result.data})
         
     })
 } 
+componentDidUpdate(){
+  axios.get('/api/records').then(result=>{
+    this.setState({records:result.data})
+})
+}
   render() {
     const displayRecords = this.state.records.map((record,i)=>{
       return(<Records
         index={i}
+        id={record.id}
         username={record.username}
         input_one={record.input_one}
         input_two={record.input_two}

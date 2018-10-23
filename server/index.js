@@ -30,4 +30,4 @@ app.get('/api/records',controller.read);
 app.put('/api/records',controller.post);
 
 //Delete a specific record
-app.delete('/api/records',controller.delete);
+app.delete('/api/records/:id',controller.delete);

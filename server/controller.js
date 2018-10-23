@@ -17,11 +17,16 @@ module.exports = {
         })
     },
     delete:(req,res)=>{
-        const db = req.app.get('db');
-        db.delete_record(req.params.id).then(result=>{
-            db.get_records().then(result=>{
-                res.status(200).send(result)
-            })
-        })
-    }
+        const db = req.app.get('db'); 
+        db.select_record(req.params.id).then(result=>{
+            if(result.length>0){
+                db.delete_record(req.params.id).then(result=>{
+                    db.get_records().then(result=>{
+                        res.status(200).send(result)
+                    })
+                })
+            } else{
+                res.status(200).send("No such id found.")
+            }
+            })}
 }
