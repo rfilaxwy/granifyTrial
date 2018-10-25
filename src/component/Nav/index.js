@@ -1,13 +1,14 @@
+// Core imports
 import React, {Component} from 'react';
-import './Nav.css';
+
+// Vendor libraries
 import axios from 'axios';
 import {Modal} from 'react-bootstrap'
 
+// Custom
+import './index.scss';
 
-
-  
-
-export default class Landing extends Component{
+export default class Nav extends Component{
     constructor(props,context){
         super(props,context)
         this.state={
@@ -17,8 +18,13 @@ export default class Landing extends Component{
             userInputTwo: '',
             timeStamp: '',
             id:'',
+            records:[],
+            displayerUsername:'',
+            displayerId:'',
+            displayerInputOne:'',
             addShow: false,
-            deleteShow:false
+            deleteShow:false,
+            displayShow:false
         }
         this.addRecord = this.addRecord.bind(this);
         this.deleteRecord = this.deleteRecord.bind(this);
@@ -27,12 +33,15 @@ export default class Landing extends Component{
         this.handleAddClose = this.handleAddClose.bind(this);
         this.handleDeleteClose = this.handleDeleteClose.bind(this);
         this.handleDeleteShow = this.handleDeleteShow.bind(this);
+        this.handleDisplayShow = this.handleDisplayShow.bind(this);
+        this.handleDisplayClose = this.handleDisplayClose.bind(this);
         
     }
-
-    //Functions
+    componentDidMount(){
+        const {records}=this.props;
+        this.setState({records:records})
+    }
     
-
     //toggles modal on
     handleAddShow() {
         this.setState({addShow:true})
@@ -46,6 +55,12 @@ export default class Landing extends Component{
     }
     handleDeleteClose() {
         this.setState({deleteShow:false})
+    }
+    handleDisplayShow(){
+        this.setState({displayShow:true})
+    }
+    handleDisplayClose(){
+        this.setState({displayShow:false})
     }
         //input handlers
     handleAddUsername(val){
@@ -61,23 +76,20 @@ export default class Landing extends Component{
         this.setState({userInputTwo:val})
     }
     handleRecId(val){
-        
         this.setState({id:val})
     }
-    //NEED TO ADD FUNCTIONALITY
-    reset(){}
 
     addRecord(){
-        var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        let timestamp = new Date().toISOString().replace('Z','')
+        let timeIn = Math.round((new Date().getTime())/3600);
         //takes record info from state and sends to back end via axios.
         const {userName,phoneNumber,userInputOne,userInputTwo}=this.state;
-        axios.put('/api/records',{userName,phoneNumber,userInputOne,userInputTwo,timestamp}).then(res=>{
+        axios.put('/api/records',{userName,phoneNumber,userInputOne,userInputTwo,timestamp,timeIn}).then(res=>{
             this.setState({userName:'',phoneNumber:'',userInputOne:'',userInputTwo:'',addShow:false})
-            console.log(res)
+            
         })
     }
     deleteRecord(){
-        
         const id =this.state.id;
         axios.delete(`/api/records/${id}`).then(result=>{
             this.setState({id:'',deleteShow:false})
@@ -85,17 +97,20 @@ export default class Landing extends Component{
     }
     displayRecord(){
 
+        const id = this.state.id;
+        const disp = this.props.records.filter(x=>{return x['id']==id})
+        this.setState({displayerId:disp[0]['id'], displayerUsername:disp[0]['username'],displayerInputOne:disp[0]['input_one']})
+        
     }
     render(){
        
         return(
-            <div>
-            <div className='nav'>
-                <div className='nav-bar'>
-                    <button onClick={this.handleAddShow}>ADD RECORD</button>
-                    <button onClick={this.handleDeleteShow}>DELETE RECORD</button>
-                    <button onClick={this.displayRecord}>DISPLAY RECORD</button>
-                </div>
+          <div className='Nav'>
+            <div className='nav-bar'>
+              <button onClick={this.handleAddShow}>ADD RECORD</button>
+              <button onClick={this.handleDeleteShow}>DELETE RECORD</button>
+              <button onClick={this.handleDisplayShow}>DISPLAY RECORD</button>
+            </div>
                 <Modal show={this.state.addShow} onHide={this.handleAddClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Record</Modal.Title>
@@ -112,6 +127,7 @@ export default class Landing extends Component{
                         <button onClick={this.handleAddClose }>Close</button>
                     </Modal.Footer>
                 </Modal>
+
                 <Modal show={this.state.deleteShow} onHide={this.handleDeleteClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Record</Modal.Title>
@@ -123,7 +139,21 @@ export default class Landing extends Component{
                         <button onClick={this.deleteRecord}>Delete</button>
                     </Modal.Footer>
                 </Modal>
-                </div>
+
+                <Modal show={this.state.displayShow} onHide={this.handleDisplayClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Display Record</Modal.Title>
+                        <input placeholder="Record Id" onChange={(e)=>this.handleRecId(e.target.value)}></input> 
+                        <button onClick={this.displayRecord}>Display</button>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div>
+                            Id: {this.state.displayerId}<br/>
+                            Username: {this.state.displayerUsername}<br/>
+                            InputOne: {this.state.displayerInputOne}
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </div>
         )
     }

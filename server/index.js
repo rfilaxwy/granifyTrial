@@ -31,3 +31,6 @@ app.put('/api/records',controller.post);
 
 //Delete a specific record
 app.delete('/api/records/:id',controller.delete);
+
+app.get('/api/times',controller.read_newest);
+app.get('/api/length',controller.read_length)

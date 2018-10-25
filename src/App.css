@@ -11,8 +11,6 @@
 }
 
 
-
-
 .stats{
   height:50vh;
   display:flex;
@@ -21,14 +19,15 @@
 .recs{
   display:flex;
   justify-content: center;
+  box-sizing:border-box;
   flex-wrap:wrap; 
-  width:65%;
+  width:73%;
   padding:15px;
   height:auto;
   margin:auto;
 }
 .recordCard{
-  background-color: rgb(203, 214, 197);
+  background-color: rgb(191, 218, 235);
   margin:15px;
   box-shadow: 4px 4px 9px 3px rgb(117, 121, 120);
   border-radius: 4px;
